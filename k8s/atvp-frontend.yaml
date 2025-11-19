@@ -20,7 +20,7 @@ spec:
             - containerPort: 5173
           env:
             - name: VITE_API_BASE_URL
-               value: "http://52.54.10.9:31081"
+              value: "http://52.54.10.9:31081"
 ---
 apiVersion: v1
 kind: Service
