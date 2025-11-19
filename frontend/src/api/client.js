@@ -1,10 +1,8 @@
 // frontend/src/api/client.js
 import axios from "axios";
 
-// Read from Vite env at build/dev-server start time
-const base = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
-
-console.log("API base URL:", base);  // temporary: to verify in browser
+const base =
+  import.meta.env.VITE_API_BASE_URL || "http://52.54.10.9:31081";
 
 const api = axios.create({
   baseURL: base,
