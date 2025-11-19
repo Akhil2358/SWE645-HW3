@@ -1,0 +1,47 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atvp-mysql-admin
+  namespace: atvp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atvp-mysql-admin
+  template:
+    metadata:
+      labels:
+        app: atvp-mysql-admin
+    spec:
+      containers:
+        - name: phpmyadmin
+          image: phpmyadmin/phpmyadmin:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: PMA_HOST
+              value: atvp-mysql.atvp.svc.cluster.local
+            - name: PMA_PORT
+              value: "3306"
+            # Optional: default login, you can still type manually in UI
+            - name: PMA_USER
+              value: atvp
+            - name: PMA_PASSWORD
+              value: atvppass
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: atvp-mysql-admin
+  namespace: atvp
+spec:
+  type: NodePort
+  selector:
+    app: atvp-mysql-admin
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      nodePort: 30082
+
