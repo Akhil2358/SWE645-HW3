@@ -40,6 +40,10 @@ export default function LandingPage() {
             <h3>Actionable</h3>
             <p>Your answers feed into real course and campus improvements.</p>
           </div>
+          <div className="info-card">
+            <h3>Team Mates Information</h3>
+            <p>Akkineni Venkata Akhil : G01547445 , Tarun datta gondi  : G01547449  ,Varshitha goduguluri : G01539592         </p>
+          </div>
         </div>
       </div>
     </section>
