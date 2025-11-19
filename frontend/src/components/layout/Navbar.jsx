@@ -10,7 +10,7 @@ export default function Navbar() {
     <header className="nav-root">
       <div className="nav-inner">
         <Link to="/" className="logo">
-          SSSN Survey Portal
+          ATVP Survey Portal
         </Link>
         <nav className="nav-links">
           <Link className={linkClass("/")} to="/">
