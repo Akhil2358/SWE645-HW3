@@ -17,12 +17,11 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],        # allow any origin
-    allow_credentials=False,    # must be False when allow_origins=["*"]
+    allow_origins=["*"],          # allow any origin
+    allow_credentials=False,      # must be False when using "*"
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.get("/api/health")
 def health():
