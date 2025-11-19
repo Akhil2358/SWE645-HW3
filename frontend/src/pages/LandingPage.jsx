@@ -42,7 +42,7 @@ export default function LandingPage() {
           </div>
           <div className="info-card">
             <h3>Team Mates Information</h3>
-            <p>Akkineni Venkata Akhil , Tarun datta gondi  ,Varshitha goduguluri   </p>
+            <p>Akkineni Venkata Akhil : g01547445, Tarun datta gondi : G01547449  ,Varshitha goduguluri g01539592  </p>
           </div>
         </div>
       </div>
