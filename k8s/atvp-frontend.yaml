@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atvp-frontend
+  namespace: atvp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atvp-frontend
+  template:
+    metadata:
+      labels:
+        app: atvp-frontend
+    spec:
+      containers:
+        - name: web
+          image: tgondi/atvp-frontend:hw3
+          ports:
+            - containerPort: 5173
+          env:
+            - name: VITE_API_BASE_URL
+              value: "http://atvp-backend.atvp.svc.cluster.local:8000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: atvp-frontend
+  namespace: atvp
+spec:
+  type: NodePort
+  selector:
+    app: atvp-frontend
+  ports:
+    - name: http
+      port: 5173
+      targetPort: 5173
+      nodePort: 30080   # frontend exposed at :30080 on the node

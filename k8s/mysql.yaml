@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atvp-mysql
+  namespace: atvp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atvp-mysql
+  template:
+    metadata:
+      labels:
+        app: atvp-mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: rootpassword
+            - name: MYSQL_DATABASE
+              value: atvp
+            - name: MYSQL_USER
+              value: atvp
+            - name: MYSQL_PASSWORD
+              value: atvppass
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: atvp-mysql
+  namespace: atvp
+spec:
+  type: ClusterIP
+  selector:
+    app: atvp-mysql
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: 3306

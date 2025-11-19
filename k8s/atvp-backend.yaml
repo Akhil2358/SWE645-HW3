@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atvp-backend
+  namespace: atvp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atvp-backend
+  template:
+    metadata:
+      labels:
+        app: atvp-backend
+    spec:
+      containers:
+        - name: api
+          image: tgondi/atvp-backend:hw3
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DB_HOST
+              value: atvp-mysql.atvp.svc.cluster.local
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_USER
+              value: atvp
+            - name: DB_PASS
+              value: atvppass
+            - name: DB_NAME
+              value: atvp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: atvp-backend
+  namespace: atvp
+spec:
+  type: NodePort
+  selector:
+    app: atvp-backend
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+      nodePort: 31081   # backend exposed at :31081 on the node

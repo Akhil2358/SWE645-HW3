@@ -1,0 +1,41 @@
+services:
+  atvp-mysql:
+    image: mysql:8
+    container_name: atvp-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: atvp
+      MYSQL_USER: atvp
+      MYSQL_PASSWORD: atvppass
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  atvp-backend:
+    build: ./backend
+    image: atvp-backend:hw3
+    container_name: atvp-backend
+    environment:
+      DB_HOST: atvp-mysql
+      DB_PORT: "3306"
+      DB_USER: atvp
+      DB_PASS: atvppass
+      DB_NAME: atvp
+    depends_on:
+      atvp-mysql:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+  atvp-frontend:
+    build: ./frontend
+    image: atvp-frontend:hw3
+    container_name: atvp-frontend
+    depends_on:
+      - atvp-backend
+    ports:
+      - "5173:5173"
