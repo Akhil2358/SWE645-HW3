@@ -59,6 +59,9 @@ pipeline {
             kubectl -n atvp apply -f k8s/mysql.yaml
             kubectl -n atvp apply -f k8s/atvp-backend.yaml
             kubectl -n atvp apply -f k8s/atvp-frontend.yaml
+            # 🔁 Force frontend to pick up the new image
+            kubectl -n atvp rollout restart deployment atvp-frontend
+            kubectl -n atvp rollout status deployment atvp-frontend
         '''
     }
 }
