@@ -12,7 +12,7 @@ app = FastAPI(title="Student Survey API")
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "http://52.5.253.108:30080",  # when deployed
+    "http://52.54.10.9:30080",  # current frontend NodePort
 ]
 
 app.add_middleware(
