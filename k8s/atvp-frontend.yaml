@@ -16,6 +16,7 @@ spec:
       containers:
         - name: web
           image: tgondi/atvp-frontend:hw3
+          imagePullPolicy: Always
           ports:
             - containerPort: 5173
           env:
