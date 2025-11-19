@@ -50,21 +50,18 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
-            steps {
-                sh '''
-                echo "Using kubeconfig at ${KUBECONFIG_PATH}"
-                export KUBECONFIG=${KUBECONFIG_PATH}
+    steps {
+        sh '''
+            echo Using kubeconfig at /var/jenkins_home/rke2-jenkins.yaml
+            export KUBECONFIG=/var/jenkins_home/rke2-jenkins.yaml
 
-                kubectl apply -f k8s/namespace.yaml
+            kubectl apply -f k8s/namespace.yaml
+            kubectl -n atvp apply -f k8s/mysql.yaml
+            kubectl -n atvp apply -f k8s/atvp-backend.yaml
+            kubectl -n atvp apply -f k8s/atvp-frontend.yaml
+        '''
+    }
+}
 
-                kubectl -n atvp apply -f k8s/mysql.yaml
-                kubectl -n atvp apply -f k8s/atvp-backend.yaml
-                kubectl -n atvp apply -f k8s/atvp-frontend.yaml
-
-                echo "Current status in atvp namespace:"
-                kubectl -n atvp get pods,svc
-                '''
-            }
-        }
     }
 }
